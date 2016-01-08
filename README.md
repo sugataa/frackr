@@ -1,2 +1,4 @@
 # frackr
 Quantify your fitness progress
+
+Sugata Acharjya
