@@ -1,5 +1,5 @@
 # frackr
 Quantify your fitness progress
 
-Sugata Acharjya__
+Sugata Acharjya  
 Sammy Diamantstein
