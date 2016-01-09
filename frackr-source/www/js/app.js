@@ -6,6 +6,7 @@
 angular.module('frackr', ['ionic'])
 
 .controller('FrackrCtrl',function($scope, $ionicModal) {
+  
   // No need for testing data anymore
   $scope.tasks = [];
 
@@ -30,10 +31,12 @@ angular.module('frackr', ['ionic'])
   $scope.newTask = function() {
     $scope.taskModal.show();
   };
+
   // Close the new task modal
   $scope.closeNewTask = function() {
     $scope.taskModal.hide();
   };
+
 })
   
 .run(function($ionicPlatform) {
