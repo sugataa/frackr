@@ -7,7 +7,7 @@ angular.module('frackr', ['ionic'])
 
 .controller('FrackrCtrl',function($scope, $ionicModal) {
   // No need for testing data anymore
-  $scope.tasks-[];
+  $scope.tasks = [];
 
   // Create and load the Modal
   $ionicModal.fromTemplateUrl('new-task.html', function(modal) {
