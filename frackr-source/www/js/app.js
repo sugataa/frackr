@@ -11,7 +11,7 @@ angular.module('frackr', ['ionic'])
 
   // Create and load the Modal
   $ionicModal.fromTemplateUrl('new-task.html', function(modal) {
-    $scope.taskModal= modal;
+    $scope.taskModal = modal;
   }, {
     scope: $scope,
     animation: 'slide-in-up'
@@ -20,7 +20,7 @@ angular.module('frackr', ['ionic'])
   // called when the form is submitted
   $scope.createTask = function(task) {
     $scope.tasks.push({
-      title:task.title
+      title: task.title
     });
     $scope.taskModal.hide();
     task.title = "";
