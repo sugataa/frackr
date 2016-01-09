@@ -5,12 +5,14 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('frackr', ['ionic'])
 .controller('FrackrCtrl', function($scope) {
-  $scope.tasks=[
-  {title: 'Blank'},
-  {title: 'Blank'},
-  {title: 'Blank'},
-  {title: 'Blank'},
+  
+  $scope.tasks = [
+    {title: 'Blank'},
+    {title: 'Blank'},
+    {title: 'Blank'},
+    {title: 'Blank'},
   ];
+
 })
 
 .run(function($ionicPlatform) {

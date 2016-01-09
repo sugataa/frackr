@@ -23,14 +23,6 @@
   </head>
   <body ng-app="frackr" ng-controller="FrackrCtrl">
 
-<!--     <ion-pane>
-      <ion-header-bar class="bar-stable">
-        <h1 class="title">Ionic Blank Starter</h1>
-      </ion-header-bar>
-      <ion-content>
-      </ion-content>
-    </ion-pane>
- -->
     <ion-side-menus>
 
       <!-- Center content -->
@@ -39,7 +31,7 @@
           <h1 class="title">Todo</h1>
         </ion-header-bar>
         <ion-content>
-          <!--our list and list items-->
+          <!-- Our list and list items -->
           <ion-list>
             <ion-item ng-repeat="task in tasks">
               {{task.title}}
@@ -54,6 +46,43 @@
           <h1 class="title">Projects</h1>
         </ion-header-bar>
       </ion-side-menu>
+
+      <script id="new-task.html" type="text/ng-template">
+
+        <div class="modal">
+
+          <!-- Modal header bar -->
+          <ion-header-bar class="bar-secondary">
+            <h1 class="title">New Task</h1>
+            <button class="button button-clear button-positive" ng-click="closeNewTask()">
+              Cancel
+            </button>
+          </ion-header-bar>
+
+          <!-- Modal content area -->
+          <ion-content>
+
+            <!-- Create a new form to enter a task -->
+            <form ng-submit="createTask(task)">
+              <div class="list">
+                <!-- the place where you actually enter it -->
+                <label class="item item-input">
+                  <input type="text" placeholder="What do you need to do?" ng-model="task.title">
+                </label>
+              </div>
+              <!-- the button that allows you to submit the task -->
+              <div class="padding">
+                <button type="submit" class="button button-block button-positive">
+                  Create Task
+                </button>
+              </div>
+            </form>
+
+          </ion-content>
+
+        </div>
+
+      </script>
 
     </ion-side-menus>
 
