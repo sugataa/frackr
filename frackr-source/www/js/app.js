@@ -6,101 +6,100 @@
 angular.module('frackr', ['ionic'])
 
 /**
-  The Projects factory handles saving and loading projects from local storage, and also lets us save and load the last active project index.
+  The Workout factory handles saving and loading workouts from local storage, and also lets us save and load the last active workout index.
 **/
 
-.factory('Projects', function() {
+.factory('Workouts', function() {
   return {
     all: function() {
-      var projectString = window.localStorage['projects'];
-      if(projectString) {
-        return angular.fromJson(projectString);
+      var workoutString = window.localStorage['workouts'];
+      if(workoutString) {
+        return angular.fromJson(workoutString);
       }
       return [];
     },
-    save: function(projects) {
-      window.localStorage['projects'] = angular.toJson(projects);
+    save: function(workouts) {
+      window.localStorage['workouts'] = angular.toJson(workouts);
     },
-    newProject: function(projectTitle) {
-      // Add a new project
+    newWorkout: function(workoutTitle) {
+      // Add a new workout
       return {
-        title: projectTitle,
-        tasks: []
+        title: workoutTitle,
+        exercises: []
       };
     },
     getLastActiveIndex: function() {
-      return parseInt(window.localStorage['lastActiveProject']) || 0; 
+      return parseInt(window.localStorage['lastActiveWorkout']) || 0; 
     },
     setLastActiveIndex: function(index) {
-      window.localStorage['lastActiveProject'] == index;
+      window.localStorage['lastActiveWorkout'] == index;
     }
   }
 })
 
-.controller('FrackrCtrl',function($scope, $timeout, $ionicModal, Projects, $ionicSideMenuDelegate) {
+.controller('FrackrCtrl',function($scope, $timeout, $ionicModal, Workouts, $ionicSideMenuDelegate) {
   
-  // A utility function for creating a new project with the given projectTitle
-  var createProject = function(projectTitle) {  
-    var newProject= Projects.newProject(projectTitle);
-    $scope.projects.push(newProject);
-    Projects.save($scope.projects);
-    $scope.selectProject(newProject, $scope.projects.length-1);
+  // A utility function for creating a new workout with the given workoutTitle
+  var createWorkout = function(workoutTitle) {  
+    var newWorkout= Workouts.newWorkout(workoutTitle);
+    $scope.workouts.push(newWorkout);
+    Workouts.save($scope.workouts);
+    $scope.selectWorkout(newWorkout, $scope.workouts.length-1);
   }
-  //$scope.tasks = [];
 
-  // Load or initialize projects
-  $scope.projects = Projects.all();
+  // Load or initialize workouts
+  $scope.workouts = Workouts.all();
 
-  // Grab the last activ, or the first project
-  $scope.activeProject = $scope.projects[Projects.getLastActiveIndex()];
+  // Grab the last active, or the first project
+  $scope.activeWorkout = $scope.workouts[Workouts.getLastActiveIndex()];
 
-  //Called to create a new project
-  $scope.newProject = function () {
-    var projectTitle = prompt ('Project name');
-    if(projectTitle) {
-      createProject(projectTitle);
+  //Called to create a new workout
+  $scope.newWorkout = function() {
+    var workoutTitle = prompt ('Workout name');
+    if(workoutTitle) {
+      createWorkout(workoutTitle);
     }
   };
 
-  //Called to select the given project
-  $scope.selectProject = function(project, index) {
-    $scope.activeProject = project;
-    Projects.setLastActiveIndex(index);
+  //Called to select the given workout
+  $scope.selectWorkout = function(workout, index) {
+    $scope.activeWorkout = workout;
+    Workouts.setLastActiveIndex(index);
     $ionicSideMenuDelegate.toggleLeft(false); 
   };
 
   // Create and load the Modal
-  $ionicModal.fromTemplateUrl('new-task.html', function(modal) {
-    $scope.taskModal = modal;
+  $ionicModal.fromTemplateUrl('new-exercise.html', function(modal) {
+    $scope.exerciseModal = modal;
   }, {
     scope: $scope,
     animation: 'slide-in-up'
   });
 
-  $scope.createTask = function(task) {
-    if(!$scope.activeProject || !task) {
+  $scope.createExercise = function(exercise) {
+    if(!$scope.activeWorkout || !exercise) {
       return;
     }
     
-    $scope.activeProject.tasks.push({
-      title: task.title
+    $scope.activeWorkout.exercises.push({
+      title: exercise.title
     });
-    $scope.taskModal.hide();
+    $scope.exerciseModal.hide();
 
-    //inefficient, but save all the projects 
-    Projects.save($scope.projects);
+    //inefficient, but save all the workouts 
+    Workouts.save($scope.workouts);
 
-    task.title = "";
+    exercise.title = "";
   };
 
-  $scope.newTask = function() {
-    $scope.taskModal.show();
+  $scope.newExercise = function() {
+    $scope.exerciseModal.show();
   };
-  $scope.closeNewTask= function() {
-    $scope.taskModal.hide();
+  $scope.closeNewExercise= function() {
+    $scope.exerciseModal.hide();
   }
 
-  $scope.toggleProjects = function () {
+  $scope.toggleWorkouts = function () {
     $ionicSideMenuDelegate.toggleLeft();
   };
   
@@ -108,11 +107,11 @@ angular.module('frackr', ['ionic'])
   // this by using $timeout so everything is initialized
   // properly
   $timeout(function() {
-    if($scope.projects.length == 0) {
+    if($scope.workouts.length == 0) {
       while(true) {
-        var projectTitle = prompt('Your first project title:');
-        if(projectTitle) {
-          createProject(projectTitle);
+        var workoutTitle = prompt('Your first workout title: ');
+        if(workoutTitle) {
+          createWorkout(workoutTitle);
           break;
         }
       }

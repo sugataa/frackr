@@ -28,21 +28,21 @@
       <!-- Center content -->
       <ion-side-menu-content>
         <ion-header-bar class="">
-          <button class="button button-icon" ng-click="toggleProgjects()">
+          <button class="button button-icon" ng-click="toggleWorkouts()">
             <i class="icon ion-vanicon"></i> 
           </button>
-          <h1 class="title"> {{activeProject.title}}</h1>
+          <h1 class="title"> {{activeWorkout.title}}</h1>
           <!--New Task Button-->
-          <button class="button button-icon" ng-click="newTask()">
+          <button class="button button-icon" ng-click="newExercise()">
             <i class="icon ion-compose"></i>
-            New Task
+            New Exercise
           </button>
         </ion-header-bar>
         <ion-content scroll="false">
           <!-- Our list and list items -->
           <ion-list>
-            <ion-item ng-repeat="task in activeProject.tasks">
-              {{task.title}}
+            <ion-item ng-repeat="exercise in activeWorkout.exercises">
+              {{exercise.title}}
             </ion-item>
           </ion-list>
         </ion-content>
@@ -51,31 +51,31 @@
       <!-- Left menu -->
       <ion-side-menu side="left">
         <ion-header-bar class="bar-dark">
-          <h1 class="title">Projects</h1>
-          <button class="button button-icon ion-plus" ng-click="newProject()">
+          <h1 class="title">Workouts</h1>
+          <button class="button button-icon ion-plus" ng-click="newWorkout()">
           </button>
         </ion-header-bar>
         <ion-content scroll="false">
           <ion-list>
             <ion-item 
-              ng-repeat="project in projects" 
-              ng-click="selectProject(project, $index)" 
-              ng-class="{active: activeProject == project}"
+              ng-repeat="workout in workouts" 
+              ng-click="selectWorkout(workout, $index)" 
+              ng-class="{active: activeWorkout == workout}"
             >
-              {{project.title}}
+              {{workout.title}}
             </ion-item>
           </ion-list>
         </ion-content>
       </ion-side-menu>
 
-      <script id="new-task.html" type="text/ng-template">
+      <script id="new-exercise.html" type="text/ng-template">
 
         <div class="modal">
 
           <!-- Modal header bar -->
           <ion-header-bar class="bar-secondary">
-            <h1 class="title">New Task</h1>
-            <button class="button button-clear button-positive" ng-click="closeNewTask()">
+            <h1 class="title">New Exercise</h1>
+            <button class="button button-clear button-positive" ng-click="closeNewExercise()">
               Cancel
             </button>
           </ion-header-bar>
@@ -83,18 +83,18 @@
           <!-- Modal content area -->
           <ion-content>
 
-            <!-- Create a new form to enter a task -->
-            <form ng-submit="createTask(task)">
+            <!-- Create a new form to enter an exercise -->
+            <form ng-submit="createExercise(exercise)">
               <div class="list">
                 <!-- the place where you actually enter it -->
                 <label class="item item-input">
-                  <input type="text" placeholder="What do you need to do?" ng-model="task.title">
+                  <input type="text" placeholder="What exercise do you want to add?" ng-model="exercise.title">
                 </label>
               </div>
-              <!-- the button that allows you to submit the task -->
+              <!-- the button that allows you to submit the exercise -->
               <div class="padding">
                 <button type="submit" class="button button-block button-positive">
-                  Create Task
+                  Create Exercise
                 </button>
               </div>
             </form>
