@@ -41,7 +41,7 @@ angular.module('frackr', ['ionic'])
   
   // A utility function for creating a new project with the given projectTitle
   var createProject = function(projectTitle) {  
-    var newProject= Project.newProject(projectTitle);
+    var newProject= Projects.newProject(projectTitle);
     $scope.projects.push(newProject);
     Projects.save($scope.projects);
     $scope.selectProject(newProject, $scope.projects.length-1);
@@ -66,7 +66,7 @@ angular.module('frackr', ['ionic'])
   $scope.selectProject = function(project, index) {
     $scope.activeProject = project;
     Projects.setLastActiveIndex(index);
-    $IonicSideMenuDelegate.toggleLeft(false); 
+    $ionicSideMenuDelegate.toggleLeft(false); 
   };
 
   // Create and load the Modal
@@ -80,50 +80,30 @@ angular.module('frackr', ['ionic'])
   $scope.createTask = function(task) {
     if(!$scope.activeProject || !task) {
       return;
-      }
-      $scope.activeProject.tasks.push({
-        title: task.title
-      });
-      $scope.taskModal.hide();
-
-      //inefficient, but save all the projects 
-      Projects.save($scope.projects);
-
-      task.title = "";
-    };
-
-    $scope.newTask = function() {
-      $scope.taskModal.show();
-    };
-    $scope.closeNewTask= function() {
-      $scope.taskModal.hide();
     }
-
-    $scope.toggleProjects = function () {
-      $ionicSideMenuDelegate.toggleLeft();
-    };
-
-  // called when the form is submitted
-  $scope.createTask = function(task) {
-    $scope.tasks.push({
+    
+    $scope.activeProject.tasks.push({
       title: task.title
     });
     $scope.taskModal.hide();
+
+    //inefficient, but save all the projects 
+    Projects.save($scope.projects);
+
     task.title = "";
   };
 
-  // Open our new task modal
   $scope.newTask = function() {
     $scope.taskModal.show();
   };
-
-  // Close the new task modal
-  $scope.closeNewTask = function() {
+  $scope.closeNewTask= function() {
     $scope.taskModal.hide();
   }
-  $scope.toggleProjects = function() {
+
+  $scope.toggleProjects = function () {
     $ionicSideMenuDelegate.toggleLeft();
   };
+  
   // Try to create the first project, make sure to defer
   // this by using $timeout so everything is initialized
   // properly
